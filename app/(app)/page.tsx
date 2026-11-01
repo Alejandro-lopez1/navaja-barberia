@@ -38,7 +38,7 @@ export default async function HomePage({ searchParams }: Props) {
             NAVAJA
           </h1>
           <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.32em] text-muted">
-            Barbería
+            Sistema de Gestión para Barberías
           </p>
         </div>
         <p className="pt-1 text-right text-[10px] font-semibold uppercase leading-relaxed tracking-[0.3em] text-muted">
