@@ -5,7 +5,19 @@ import { NextResponse } from "next/server";
 export const AUTH_COOKIE = "navaja_auth";
 
 export function authEnabled(): boolean {
-  return Boolean(process.env.APP_PIN);
+  const pin = process.env.APP_PIN;
+  const authSecret = process.env.AUTH_SECRET;
+
+  if (process.env.NODE_ENV === "production") {
+    if (!pin) {
+      throw new Error("APP_PIN es obligatorio en producción.");
+    }
+    if (!authSecret || authSecret.length < 32) {
+      throw new Error("AUTH_SECRET debe tener al menos 32 caracteres en producción.");
+    }
+  }
+
+  return Boolean(pin);
 }
 
 function secret(): string {

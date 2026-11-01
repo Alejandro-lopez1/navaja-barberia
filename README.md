@@ -162,13 +162,19 @@ npm run dev
 
 1. Subí el repo a GitHub.
 2. Importalo en Vercel.
-3. Cargá las variables de entorno del proyecto (Production/Preview):
+3. Cargá las variables de entorno del entorno Production:
    - `GOOGLE_SPREADSHEET_ID`
    - `GOOGLE_SERVICE_ACCOUNT_EMAIL`
    - `GOOGLE_PRIVATE_KEY` (con `\n` escapados o saltos reales según el dashboard)
-   - `APP_PIN`, `AUTH_SECRET`, `ADMIN_NAME`, `CURRENCY`
+   - `APP_PIN` y `AUTH_SECRET` (obligatorios en producción; el secreto debe tener al menos 32 caracteres)
+   - `ADMIN_NAME`, `CURRENCY`
    - **No** definas `SHEETS_MOCK` en producción.
-4. Deploy. No hace falta correr `init-sheets` en el deploy: la app crea las pestañas en el primer request si faltan.
+4. En Preview, configurá credenciales y una planilla de pruebas separada; no conectes previews a la planilla de producción.
+5. Deploy. No hace falta correr `init-sheets` en el deploy: la app crea las pestañas en el primer request si faltan.
+
+No subas `service-account.json` ni archivos `.env` al repositorio. `.vercelignore` excluye estos archivos de los deploys por CLI. Configurá las credenciales como variables de entorno del proyecto Vercel.
+
+Para generar un secreto de sesión localmente, usá `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"` y cargá el resultado en `AUTH_SECRET` desde el panel de Vercel. No lo compartas por chat ni lo guardes en el repositorio.
 
 ### Otros hosts
 
